@@ -1,0 +1,56 @@
+<c-row ngPreserveWhitespaces *ngIf="!isActor && !isloading">
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>Peliculas Estrenadas 2023</strong>
+        </c-card-header>
+        <c-card-body>
+            <c-row>
+                <c-col class="mb-3"  style="display: flex; justify-content: flex-start;flex-wrap: nowrap" *ngFor="let items of peliculas; index as i;">
+                    <c-card style="width: 18rem;">
+                        <ng-container>
+                            <svg
+                                aria-label="Placeholder: Image cap"
+                                class="docs-placeholder-img"
+                                focusable="false"
+                                height="180"
+                                preserveAspectRatio="xMidYMid slice"
+                                role="img"
+                                width="100%"
+                                xmlns="http://www.w3.org/2000/svg"
+                                >
+                                <title>Placeholder</title>
+                                <rect fill="#868e96" height="100%" width="100%"></rect>
+                                <text dominant-baseline="middle" dy=".3em" fill="#dee2e6" text-anchor="middle" x="50%" y="50%">Image cap</text>
+                                </svg>
+                        </ng-container>
+                        <c-card-body>
+                            <h5 cCardTitle style="font-size: 15px; text-align: center; font-weight: 900;">{{items.title}}</h5>
+                            <div>
+                              <span class="font-weight"> Director:  <span class="font-lighter">{{items.director}}</span></span>
+                            </div>
+                            <div>
+                              <span class="font-weight"> Producido:  <span class="font-lighter">{{items.producer}}</span></span>
+                            </div>
+                            <div>
+                              <span class="font-weight"> Episodio:  <span class="font-lighter">{{items.episode_id}}</span></span>
+                            </div>
+                            <div>
+                              <span class="font-weight"> Fecha Creación:  <span class="font-lighter">{{items.created | date:'short'}}</span></span>
+                            </div><p></p>
+                            <div style="display: flex; justify-content: center;">
+                              <button cButton class="mb-3" color="primary" size="sm" (click)="obtenerActor(items.title, items.characters)">
+                                Ver Actores
+                              </button>
+                            </div>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+        </c-card-body>
+      </c-card>
+    </c-col>
+</c-row>
+<app-reload style="margin: 150px;" *ngIf="isloading" [isloading]="isloading"  message="Cargando"></app-reload>
+<app-authors (regresarEmit)="isActor = false" [titlePelicula]="titlePelicula" [autores]="autores" *ngIf="isActor && !isloading"></app-authors>
+  

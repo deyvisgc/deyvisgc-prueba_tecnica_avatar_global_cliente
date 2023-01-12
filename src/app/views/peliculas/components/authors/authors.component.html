@@ -1,0 +1,47 @@
+<c-row ngPreserveWhitespaces *ngIf="!isActor && !isloading">
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+            <div style="display: flex; justify-content: space-between;">
+                <strong>Autores de la Pelicula: {{titlePelicula}}</strong>
+                <button cButton class="mb-3 text-white" color="success" size="sm" (click)="regresar()">
+                    Regresar a Peliculas
+                </button>
+            </div>
+
+          </c-card-header>
+        <c-card-body>
+            <c-row>
+                <c-col class="mb-3"  style="display: flex; justify-content: flex-start;flex-wrap: nowrap" *ngFor="let items of autores; index as i;">
+                    <c-card style="width: 12rem;">
+                        <ng-container>
+                            <div style="display: flex; justify-content: center;">
+                                <img width="50" height="50" style="border-radius: 100px; margin-top: 10px;" src="./assets/img/avatars/user_default.jpg">
+                            </div>
+                        </ng-container>
+                        <c-card-body>
+                            <div>
+                              <span class="font-weight"> Nombre:  <span class="font-lighter">{{items.name}}</span></span>
+                            </div>
+                            <div>
+                              <span class="font-weight"> Genero:  <span class="font-lighter">{{items.gender}}</span></span>
+                            </div>
+                            <div>
+                              <span class="font-weight"> Cumpleaños:  <span class="font-lighter">{{items.birth_year}}</span></span>
+                            </div>
+                            <p></p>
+                            <div style="display: flex; justify-content: center;">
+                              <button cButton class="mb-3" color="primary" size="sm" (click)="verPeliculasFirmadas(items.name, items.films)">
+                                Peliculas Firmadas
+                              </button>
+                            </div>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  <app-peliculas-firmadas (regresarEmit)="isActor = false" [nameAutor]="nameAutor"  [peliculas]="peliculas" *ngIf="isActor && !isloading"></app-peliculas-firmadas>
+  <app-reload style="margin: 150px;" *ngIf="isloading" [isloading]="isloading"  message="Cargando"></app-reload>
